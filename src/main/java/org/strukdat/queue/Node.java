@@ -22,4 +22,13 @@ public class Node {
 		manusia = new Manusia(nama);
 		next = null;
 	}
+	public Node(String nama, String kotaAsal, String kotaTujuan, String tipeKendaraan, int seat, int hargaTiket){
+		manusia = new Manusia(nama);
+        manusia.seat = seat;
+        manusia.tipeKendaraan = tipeKendaraan;
+        manusia.kotaAsal = kotaAsal;
+        manusia.kotaTujuan = kotaTujuan;
+        manusia.hargaTiket = hargaTiket;
+        next = null;
+	}
 }

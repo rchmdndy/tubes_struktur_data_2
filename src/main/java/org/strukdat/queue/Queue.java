@@ -1,4 +1,7 @@
 package org.strukdat.queue;
+import java.util.Scanner;
+
+import org.strukdat.Main;
 
 public class Queue {
 	Node first;
@@ -8,6 +11,8 @@ public class Queue {
 	public Queue(){
         first = null;
     }
+	Main m = new Main();
+	
 	public Queue(int seat_available){
         first = null;
 		this.seat_available = new int[seat_available];
@@ -17,15 +22,10 @@ public class Queue {
 		highestSeatNumber = seat_available;
     }
 	
-	public String getManusia(){
-		return first.getNama();
-	}
-	public int getNoAntrian(){
-		return first.getNomerAntrian();
-	}
 	public void setRevenue(int revenue) {
 		this.revenue = revenue;
 	}
+	public Node getFirst() {return first;}
 	
 	public int getRevenue() {
 		return revenue;
@@ -58,7 +58,6 @@ public class Queue {
 	
 	public void cetak(){
 		Node pointer = first;
-   
 			cetakGaris();
 			System.out.printf("┃ %-10s\t ┃ %-15s\t ┃ %-13s\t ┃ %-10s\t ┃ %-10s\t ┃ %-20s\t ┃\n", "NO.ANTRIAN", "NAMA", "TIPE KENDARAAN", "KOTA ASAL", "KOTA TUJUAN", "HARGA TIKET");
 			cetakGaris();
@@ -97,22 +96,54 @@ public class Queue {
 			}
 		}
 	}
-	
-	public void setSeatNumber(String name, int seatNumber){
-		Node pointer = first;
-		while (pointer != null){
-			if (pointer.getNama().equals(name)){
-				pointer.setSeat(seatNumber);
-                break;
-			}
-			pointer = pointer.next;
-		}
-		System.out.println("Data orang tidak ditemukan");
-	}
 	void cetakGaris(){
 		for (int i = 0; i < 115; i++) {
 			System.out.print("━");
 		}
 		System.out.println();
+	}
+	public void enQueue_Beli(String name, String asal, String tujuan, String tipeKendaraan, int seat,int hargaTiket){
+		Node manusia = new Node(name, asal, tujuan, tipeKendaraan, seat, hargaTiket);
+		if (first != null){
+			Node pointer = first;
+			int x = 1;
+			while (pointer.next != null){
+				x++;
+				pointer = pointer.next;
+			}
+			x++;
+			pointer.next = manusia;
+			manusia.setNomerAntrian(x);
+		}else{
+			first = manusia;
+			manusia.setNomerAntrian(1);
+		}
+	}
+	public void beliTiket(Node manusia, String nama, String asal, String tujuan, String tipeKendaraan){
+		manusia.setKotaAsal(asal);
+		manusia.setKotaTujuan(tujuan);
+		manusia.setTipeKendaraan(tipeKendaraan);
+		cetakSeat();
+		System.out.print("Masukkan seat yang anda inginkan > ");
+		Scanner s = new Scanner(System.in);
+		int seat = s.nextInt();
+		manusia.setSeat(seat);
+		removeSeat(seat);
+		int hargaTiket = 0;
+		switch (tipeKendaraan){
+			case "Bus" -> {
+				hargaTiket = m.peta.getJarakBetween(m.peta.returnKota(asal), m.peta.returnKota(tujuan)) * 100;
+				setRevenue(getRevenue() + hargaTiket);
+			}
+			case "Kereta" -> {
+				hargaTiket = m.peta.getJarakBetween(m.peta.returnKota(asal), m.peta.returnKota(tujuan)) * 200;
+				setRevenue(getRevenue() + hargaTiket);
+			}
+			case "Pesawat" -> {
+				hargaTiket = m.peta.getJarakBetween(m.peta.returnKota(asal), m.peta.returnKota(tujuan)) * 500;
+				setRevenue(getRevenue() + hargaTiket);
+			}
+		}
+		enQueue_Beli(nama, asal, tujuan, tipeKendaraan, seat, hargaTiket);
 	}
 }
