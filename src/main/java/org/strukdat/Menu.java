@@ -1,5 +1,6 @@
 package org.strukdat;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
@@ -14,8 +15,14 @@ public class Menu {
 		System.out.println("6. Cari Jalan");
 		System.out.println("7. Beli Tiket");
 		System.out.println("8. Lihat tiket terjual");
-		System.out.print("Silihkan pilih pilihan anda > ");
-		return s.nextInt();
+		System.out.print("Silahkan pilih pilihan anda > ");
+		try {
+			int pilihan = s.nextInt();
+			return pilihan;
+		}catch (InputMismatchException e){
+			System.out.println("Tipe data tidak sesuai!");
+		}
+		return 0;
 	}
 	static int transportasi(){
 		Scanner s = new Scanner(System.in);
@@ -41,7 +48,7 @@ public class Menu {
 		System.out.println("1. Tambah Jalan");
 		System.out.println("2. Hapus Jalan");
 		System.out.println("3. Lihat Jalan");
-		System.out.print("Silihkan pilih pilihan anda > ");
+		System.out.print("Silahkan pilih pilihan anda > ");
 		return s.nextInt();
 	}
 	static int kota(){
@@ -58,11 +65,14 @@ public class Menu {
 	
 	static boolean confirm(){
 		Scanner s = new Scanner(System.in);
-		System.out.print("Input lagi ? [y/n] > ");
-		String pilihan = s.nextLine();
-		if(pilihan.equalsIgnoreCase("y")){
-			return true;
+		while(true) {
+			System.out.print("Input lagi ? [y/n] > ");
+			String pilihan = s.nextLine();
+			if (pilihan.equalsIgnoreCase("y")) {
+				return true;
+			} else if (pilihan.equalsIgnoreCase("n")) {
+				return false;
+			}else System.out.println("Pilihan tidak sesuai!");
 		}
-		return false;
 	}
 }
