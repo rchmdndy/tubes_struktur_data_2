@@ -28,17 +28,18 @@ public class Main {
 		Bus_antrian.enQueue("Zakky2", "Bus");
 		Bus_antrian.enQueue("Zakky3", "Bus");
 		
-		Kereta_antrian.enQueue("Dandy1", "Bus");
-		Kereta_antrian.enQueue("Dandy2", "Bus");
-		Kereta_antrian.enQueue("Zakky1", "Bus");
-		Kereta_antrian.enQueue("Zakky2", "Bus");
-		Kereta_antrian.enQueue("Zakky3", "Bus");
+		Kereta_antrian.enQueue("Dandy1", "Kereta");
+		Kereta_antrian.enQueue("Dandy2", "Kereta");
+		Kereta_antrian.enQueue("Zakky1", "Kereta");
+		Kereta_antrian.enQueue("Zakky2", "Kereta");
+		Kereta_antrian.enQueue("Zakky3", "Kereta");
 		
-		Pesawat_antrian.enQueue("Dandy1", "Bus");
-		Pesawat_antrian.enQueue("Dandy2", "Bus");
-		Pesawat_antrian.enQueue("Zakky1", "Bus");
-		Pesawat_antrian.enQueue("Zakky2", "Bus");
-		Pesawat_antrian.enQueue("Zakky3", "Bus");
+		Pesawat_antrian.enQueue("Dandy1", "Pesawat");
+		Pesawat_antrian.enQueue("Dandy2", "Pesawat");
+		Pesawat_antrian.enQueue("Zakky1", "Pesawat");
+		Pesawat_antrian.enQueue("Zakky2", "Pesawat");
+		Pesawat_antrian.enQueue("Zakky3", "Pesawat");
+		
 		do {
 			switch (Menu.utama()) {
 				// Tambah Antrian
