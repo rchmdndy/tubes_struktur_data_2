@@ -40,24 +40,29 @@ public class Graph {
 		tambahJalan("Seongnam",  46, "Incheon");
 	}
 	
-	public void tambahKota(String namaKota){
+	public void tambahKota(String namaKota) {
 		Kota newKota = new Kota(namaKota);
+		boolean containNum = namaKota.matches(".*\\d+.*");
 		String callingMethodName = Thread.currentThread().getStackTrace()[2].getMethodName();
-		if (returnKota(namaKota) == null){
-			if (firstKota == null) {
-				firstKota = newKota;
-			} else{
-				Kota pointer = firstKota;
-				while(pointer.nextKota != null){
-                    pointer = pointer.nextKota;
-                }
-				pointer.nextKota = newKota;
-				newKota.prevKota = pointer;
-			}
-			if (!callingMethodName.equals("initialize_data")) System.out.printf("Berhasil menambah kota %s!\n", namaKota);
-			jumlahKota++;
-			if (!callingMethodName.equals("initialize_data")) System.out.println("Jumlah kota sekarang = " + jumlahKota);
-		}else System.out.println("Kota sudah ada!");
+		if (!containNum) {
+			if (returnKota(namaKota) == null) {
+				if (firstKota == null) {
+					firstKota = newKota;
+				} else {
+					Kota pointer = firstKota;
+					while (pointer.nextKota != null) {
+						pointer = pointer.nextKota;
+					}
+					pointer.nextKota = newKota;
+					newKota.prevKota = pointer;
+				}
+				if (!callingMethodName.equals("initialize_data"))
+					System.out.printf("Berhasil menambah kota %s!\n", namaKota);
+				jumlahKota++;
+				if (!callingMethodName.equals("initialize_data"))
+					System.out.println("Jumlah kota sekarang = " + jumlahKota);
+			} else System.out.println("Kota sudah ada!");
+		}else System.out.println("Nama kota tidak boleh menggunakan angka!");
 	}
 	
 	public void tambahJalan(String asal, int jarak, String tujuan){
@@ -136,9 +141,22 @@ public class Graph {
 					pointer.nextKota.prevKota = null;
 					pointer.nextKota = null;
 				}
+				else if (pointer.nextKota == null){
+					pointer.prevKota.nextKota = null;
+                    pointer.prevKota = null;
+				}
+				else{
+					pointer.prevKota.nextKota = pointer.nextKota;
+                    pointer.nextKota.prevKota = pointer.prevKota;
+                    pointer.nextKota = null;
+                    pointer.prevKota = null;
+				}
+				System.out.printf("Kota %s berhasil dihapus!\n", namaKota);
+				break;
 			}
 			pointer = pointer.nextKota;
 		}
+		if (pointer == null) System.out.println("Kota tidak ditemukan!");
 	}
 	
 	public void hapusJalan(String kotaAsal, String kotaTujuan){
@@ -232,7 +250,11 @@ public class Graph {
 				cetakGaris(29);
 				pointer = pointer.nextKota;
 			}
-			else System.out.println("Belum ada jalan yang terhubung dari kota tersebut!");
+			else {
+				System.out.println("Belum ada jalan yang terhubung dari kota tersebut!");
+				break;
+				
+			}
 		}
 	}
 	
