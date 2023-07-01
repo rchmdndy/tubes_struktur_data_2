@@ -6,6 +6,6 @@ public class TestClass {
 		g.initialize_data();
 		g.cetakJalanKe("Seoul");
 		System.out.println();
-		
+		System.out.println();
 	}
 }
