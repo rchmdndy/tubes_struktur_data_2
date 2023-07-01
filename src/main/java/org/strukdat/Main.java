@@ -41,12 +41,12 @@ public class Main {
 		Pesawat_antrian.enQueue("Zakky3", "Pesawat");
 		
 		do {
-			switch (Menu.utama()) {
+			switch (utama()) {
 				// Tambah Antrian
 				case 1 -> {
 					System.out.print("Masukkan nama anda > ");
 					nama = str.nextLine();
-					switch (Menu.transportasi()) {
+					switch (transportasi()) {
 						case 1 -> Bus_antrian.enQueue(nama, "Bus");
 						case 2 -> Kereta_antrian.enQueue(nama, "Kereta");
 						case 3 -> Pesawat_antrian.enQueue(nama, "Pesawat");
@@ -54,7 +54,7 @@ public class Main {
 				}
 				// Lihat antrian
 				case 2 -> {
-					switch (Menu.transportasi()) {
+					switch (transportasi()) {
 						case 1 -> {
 							System.out.println("ANTRIAN BUS");
 							Bus_antrian.cetakAntrian();
@@ -71,7 +71,7 @@ public class Main {
 				}
 				// Kelola Kota
 				case 3 -> {
-					switch (Menu.pilihan_kota()){
+					switch (pilihan_kota()){
 						// Tambah Kota
 						case 1 -> {
 							System.out.print("Masukkan nama kota > ");
@@ -93,7 +93,7 @@ public class Main {
 				}
 				// Kelola Jalan
 				case 5 -> {
-				 switch (Menu.pilihan_jalan()){
+				 switch (pilihan_jalan()){
 					 // Tambah Jalan
                      case 1 -> {
 						 System.out.print("Dari kota ? > ");
@@ -134,7 +134,7 @@ public class Main {
 						if (peta.returnKota(tujuanB) != null) {
 							if (peta.cekFirstJalan(peta.returnKota(asalB))) {
 								if (peta.cekJalanBetween(peta.returnKota(asalB), peta.returnKota(tujuanB))) {
-									switch (Menu.transportasi()) {
+									switch (transportasi()) {
 										case 1 -> {
 											if (Bus_antrian.getFirst() != null) {
 												if (Bus_beli.beliTiket(Bus_antrian.getFirst(), Bus_antrian.getFirst().getNama(), asalB, tujuanB, "Bus", peta)) Bus_antrian.deQueue();
@@ -159,13 +159,74 @@ public class Main {
 				}
 				// Lihat penjualan Tiket
 				case 8 -> {
-					switch (Menu.transportasi()){
+					switch (transportasi()){
 						case 1 -> Bus_beli.cetak();
                         case 2 -> Kereta_beli.cetak();
                         case 3 -> Pesawat_beli.cetak();
 					}
 				}default -> System.out.println("Pilihan invalid");
 			}
-		}while (Menu.confirm());
+		}while (confirm());
+	}
+	static int utama(){
+		Scanner s = new Scanner(System.in);
+		int pilihan;
+		System.out.println("MENU");
+		System.out.println("1. Tambah Antrian");
+		System.out.println("2. Lihat Antrian");
+		System.out.println("3. Kelola Kota");
+		System.out.println("4. Cari Kota");
+		System.out.println("5. Kelola Jalan");
+		System.out.println("6. Cari Jalan");
+		System.out.println("7. Beli Tiket");
+		System.out.println("8. Lihat tiket terjual");
+		System.out.print("Silahkan pilih pilihan anda > ");
+		try {
+			pilihan = s.nextInt();
+			return pilihan;
+		}catch (InputMismatchException e){
+			System.out.println("Tipe data tidak sesuai!");
+		}
+		return 0;
+	}
+	static int transportasi(){
+		Scanner s = new Scanner(System.in);
+		System.out.println("PILIHAN TRANSPORTASI");
+		System.out.println("1. BUS");
+		System.out.println("2. KERETA");
+		System.out.println("3. PESAWAT");
+		System.out.print("Silahkan pilih pilihan anda > ");
+		return s.nextInt();
+	}
+	static int pilihan_kota(){
+		Scanner s = new Scanner(System.in);
+		System.out.println("Pilihan Menu Kota");
+		System.out.println("1. Tambah Kota");
+		System.out.println("2. Hapus Kota");
+		System.out.println("3. Lihat Kota");
+		System.out.print("Silahkan pilih pilihan anda > ");
+		return s.nextInt();
+	}
+	static int pilihan_jalan(){
+		Scanner s = new Scanner(System.in);
+		System.out.println("Pilihan Menu Jalan");
+		System.out.println("1. Tambah Jalan");
+		System.out.println("2. Hapus Jalan");
+		System.out.println("3. Lihat Jalan");
+		System.out.print("Silahkan pilih pilihan anda > ");
+		return s.nextInt();
+	}
+	
+	static boolean confirm(){
+		Scanner s = new Scanner(System.in);
+		while(true) {
+			System.out.print("Input lagi ? [y/n] > ");
+			String pilihan = s.nextLine();
+			if (pilihan.equalsIgnoreCase("y")) {
+				return true;
+			} else if (pilihan.equalsIgnoreCase("n")) {
+				return false;
+			}else System.out.println("Pilihan tidak sesuai!");
+		}
 	}
 }

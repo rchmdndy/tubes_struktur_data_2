@@ -33,7 +33,7 @@ public class Queue {
 		Node manusia = new Node(name);
 		if (first != null){
 			Node pointer = first;
-			int x = 1;
+			int x = first.getNomerAntrian();
 			while (pointer.next != null){
 				x++;
 				pointer = pointer.next;
