@@ -18,6 +18,7 @@ public class Main {
 		Scanner str = new Scanner(System.in);
 		Scanner itg = new Scanner(System.in);
 		String nama, asal, tujuan;
+		int jarak;
 		Graph peta = new Graph();
 		peta.initialize_data();
 		
@@ -101,12 +102,16 @@ public class Main {
 						 System.out.print("Ke kota ? > ");
 						 tujuan = str.nextLine();
 						 System.out.print("Dengan jarak berapa KM ? > ");
-						 try {
-							 int jarak = itg.nextInt();
-							 peta.tambahJalan(asal, jarak, tujuan);
-						 }catch (InputMismatchException e){
-							 System.out.println("Diperlukan angka desimal!");
-						 }
+						  do {
+							 try {
+								 jarak = itg.nextInt();
+								 peta.tambahJalan(asal, jarak, tujuan);
+								 break;
+							 } catch (InputMismatchException e) {
+								 System.out.println("Diperlukan angka desimal!");
+								 itg.next();
+							 }
+						 }while (true);
 					 }
 					 case 2 -> {
 						 System.out.print("Dari kota ? > ");
@@ -118,7 +123,7 @@ public class Main {
 					 case 3 -> peta.cetakJalan();
 				 }
 				}
-				// Cetak Jalan
+				// Cari Jalan
 				case 6 -> {
 					System.out.print("Ke kota ? > ");
 					peta.cetakJalanKe(str.nextLine());

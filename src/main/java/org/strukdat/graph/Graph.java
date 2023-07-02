@@ -100,7 +100,7 @@ public class Graph {
 	
 	public boolean cekJalanBetween(Kota asal, Kota tujuan){
 		Jalan pointer = asal.firstJalan;
-		if ((cekFirstJalan(asal)) && (cekFirstJalan(tujuan))){
+		if ((cekFirstJalan(asal))){
 			while(pointer!= null) {
 				if (pointer.getTujuan() == tujuan) {
 					return true;
@@ -262,7 +262,7 @@ public class Graph {
 		Kota origin = returnKota(namaKota);
         if (origin == null) System.out.println("Kota tidak ada!");
 		else {
-			System.out.println("Terdapat jalur ke kota " + namaKota);
+			System.out.println("Jalur yang mengarah ke kota " + namaKota + " : ");
 			Kota pointer = firstKota;
 			while (pointer!= null) {
 				if (cekFirstJalan(pointer)){
